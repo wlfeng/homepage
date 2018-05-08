@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import UserModels, ProjectModels
+from .models import UserModels, ProjectModels, CompanyModels, SkillModels
 
 
 # Create your views here.
@@ -7,4 +7,9 @@ from .models import UserModels, ProjectModels
 def main(request):
     user = UserModels.objects.all()[0]
     project = ProjectModels.objects.all()
-    return render(request, 'app/main.html', {'user': user, 'project': project})
+    company = CompanyModels.objects.all()
+    skill = SkillModels.objects.all()
+    android = skill.filter(skill_type='android')
+    python = skill.filter(skill_type='python')
+    return render(request, 'app/index.html',
+                  {'user': user, 'project': project, 'company': company, 'android': android, 'python': python})
